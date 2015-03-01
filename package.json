@@ -1,0 +1,22 @@
+{
+  "name": "picamera",
+  "version": "0.0.0",
+  "description": "Pi Camera Recorder App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/caltemose/picamera.git"
+  },
+  "author": "Chad L. Altemose",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caltemose/picamera/issues"
+  },
+  "homepage": "https://github.com/caltemose/picamera",
+  "devDependencies": {
+    "shelljs": "~0.3.0"
+  }
+}
