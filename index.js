@@ -1,5 +1,5 @@
 var shell = require('shelljs');
-var timer, delay = 10 * 1000;
+var timer, delay = 60 * 1000;
 
 var captureJpeg = function () {
     var now = new Date();
@@ -30,7 +30,7 @@ var captureJpeg = function () {
     shell.exec(code);
 
     console.log(pathPrefix + filedate + extension);
-    
+
     resetTimer();
 };
 
