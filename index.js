@@ -1,6 +1,20 @@
 var shell = require('shelljs');
 var timer, delay = 60 * 1000;
 
+/*
+
+things to pass through arguments:
+
+- path: './stills'
+- width: 1296
+- height: 972
+- quality: 60
+- flipV: false // -vf
+- flipH: false // -hf
+- awb: auto // auto white balance
+
+ */
+
 var captureJpeg = function () {
     var now = new Date();
     var filedate = now.toISOString().replace(/:/g,'');
@@ -28,13 +42,15 @@ var captureJpeg = function () {
     console.log(code);
 
     shell.exec(code);
-
+    console.log('shell.exec(code);');
     console.log(pathPrefix + filedate + extension);
 
     resetTimer();
+    console.log('resetTimer();')
 };
 
 var resetTimer = function () {
+    console.log('resetting timer...');
     if (timer) {
         clearTimeout(timer);
         timer = null;
@@ -42,4 +58,5 @@ var resetTimer = function () {
     timer = setTimeout(captureJpeg, delay);
 };
 
+console.log('go!');
 resetTimer();
