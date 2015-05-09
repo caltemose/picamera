@@ -26,9 +26,8 @@ things to pass through arguments:
 var captureJpeg = function () {
     var now = new Date();
     var filedate = now.toISOString().replace(/:/g,'');
-    var file;
     var serverPath = '/home/chadzilla/files.chadzilla.com/picamera/';
-    var pathPrefix = './stills/';
+    var localPath = './stills/';
     var extension = '.jpg';
     var imgWidth = 1296;
     var imgHeight = 972;
@@ -46,10 +45,9 @@ var captureJpeg = function () {
     // flip vertical + horizontal (upside-down camera)
     // code += '-vf -hf ';
     // path to file
-    file = pathPrefix + filedate + extension;
-    code += '-o ' + file;
+    code += '-o ' + localPath + filedate + extension;
 
-    console.log('shooting image:', file);
+    console.log('shooting image:', localPath + filedate + extension);
 
     shell.exec(code);
     
@@ -62,7 +60,7 @@ var captureJpeg = function () {
         path: serverPath
     }, function (err) {
         console.log('done with scp', err);
-        console.log('file:', 'http://files.chadzilla.com/picamera/' + file);
+        console.log('file:', 'http://files.chadzilla.com/picamera/' + filedate + extension);
     });
 };
 
