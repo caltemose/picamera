@@ -1,22 +1,25 @@
 {
-    "name": "picamera",
-    "version": "0.0.0",
-    "description": "Pi Camera Recorder App",
-    "main": "index.js",
-    "scripts": {
-        "start": "node index.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/caltemose/picamera.git"
-    },
-    "author": "Chad L. Altemose",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/caltemose/picamera/issues"
-    },
-    "homepage": "https://github.com/caltemose/picamera",
-    "devDependencies": {
-        "shelljs": "~0.3.0"
-    }
+  "name": "picamera",
+  "version": "0.0.0",
+  "description": "Pi Camera Recorder App",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/caltemose/picamera.git"
+  },
+  "author": "Chad L. Altemose",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caltemose/picamera/issues"
+  },
+  "homepage": "https://github.com/caltemose/picamera",
+  "devDependencies": {
+    "shelljs": "~0.3.0"
+  },
+  "dependencies": {
+    "scp2": "~0.2.1"
+  }
 }
