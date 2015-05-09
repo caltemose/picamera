@@ -33,9 +33,9 @@ var captureJpeg = function () {
     var serverPath = '/home/chadzilla/files.chadzilla.com/picamera/';
     var localPath = './stills/';
     var extension = '.jpg';
-    var imgWidth = 1296;
-    var imgHeight = 972;
-    var quality = 60;
+    var imgWidth = 800;//1296;
+    var imgHeight = 600;//972;
+    var quality = 50;
     var preDelay = 500;
 
     // setup capture with time before shot and no preview
@@ -49,35 +49,46 @@ var captureJpeg = function () {
     // flip vertical + horizontal (upside-down camera)
     // code += '-vf -hf ';
     // path to file
-    code += '-o ' + localPath + filedate + '-t' + extension;
+    code += '-o ' + localPath + filedate + extension;
 
-    console.log('shooting image:', localPath + filedate + '-t' + extension);
+    console.log('shooting image:', localPath + filedate + extension);
     shell.exec(code);
     
-    console.log('compressing image...');
-    var imagemin = new Imagemin()
-        .src(localPath + filedate + '-t' + extension)
-        .dest(localPath + filedate + extension)
-        .use(Imagemin.jpegtran({progressive:true}));
+    // console.log('compressing image...');
+    // var imagemin = new Imagemin()
+    //     .src(localPath + filedate + '-t' + extension)
+    //     .dest(localPath + filedate + extension)
+    //     .use(Imagemin.jpegtran({progressive:true}));
 
-    imagemin.run(function (err, files) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('sending file to server');
-            client.scp(localPath + filedate + extension, {
-                host: 'chadzilla.com',
-                username: user,
-                password: password,
-                path: serverPath
-            }, function (err) {
-                console.log('done with scp', err);
-                console.log('file:', 'http://files.chadzilla.com/picamera/' + filedate + extension);
-                resetTimer();
-            });
-        }
+    // imagemin.run(function (err, files) {
+    //     if (err) {
+    //         console.log(err);
+    //     } else {
+    //         console.log('sending file to server');
+    //         client.scp(localPath + filedate + extension, {
+    //             host: 'chadzilla.com',
+    //             username: user,
+    //             password: password,
+    //             path: serverPath
+    //         }, function (err) {
+    //             console.log('done with scp', err);
+    //             console.log('file:', 'http://files.chadzilla.com/picamera/' + filedate + extension);
+    //             resetTimer();
+    //         });
+    //     }
+    // });
+
+    console.log('sending file to server');
+    client.scp(localPath + filedate + extension, {
+        host: 'chadzilla.com',
+        username: user,
+        password: password,
+        path: serverPath
+    }, function (err) {
+        console.log('done with scp', err);
+        console.log('file:', 'http://files.chadzilla.com/picamera/' + filedate + extension);
+        resetTimer();
     });
-
     
 };
 
