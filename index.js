@@ -1,5 +1,7 @@
 var shell = require('shelljs');
 var client = require('scp2');
+var smushit = require('node-smushit');
+
 var timer, delay = 60 * 1000;
 
 var user = process.argv[2];
@@ -48,11 +50,12 @@ var captureJpeg = function () {
     code += '-o ' + localPath + filedate + extension;
 
     console.log('shooting image:', localPath + filedate + extension);
-
     shell.exec(code);
     
-    console.log('sending file to server');
+    console.log('smushing image...');
+    smushit.smushit(localPath + filedate + extension);
 
+    console.log('sending file to server');
     client.scp(localPath + filedate + extension, {
         host: 'chadzilla.com',
         username: user,
