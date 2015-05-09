@@ -1,6 +1,6 @@
 var shell = require('shelljs');
 var client = require('scp2');
-var smushit = require('node-smushit');
+var Imagemin = require('imagemin');
 
 var timer, delay = 60 * 1000;
 
@@ -24,6 +24,8 @@ things to pass through arguments:
 - awb: auto // auto white balance
 
  */
+
+
 
 var captureJpeg = function () {
     var now = new Date();
@@ -52,20 +54,31 @@ var captureJpeg = function () {
     console.log('shooting image:', localPath + filedate + extension);
     shell.exec(code);
     
-    console.log('smushing image...');
-    smushit.smushit(localPath + filedate + extension);
+    console.log('compressing image...');
+    var imagemin = new Imagemin()
+        .src(localPath + filedate + extension)
+        .dest(localPath + filedate + extension)
+        .use(Imagemin.jpegtran({progressive:true}));
 
-    console.log('sending file to server');
-    client.scp(localPath + filedate + extension, {
-        host: 'chadzilla.com',
-        username: user,
-        password: password,
-        path: serverPath
-    }, function (err) {
-        console.log('done with scp', err);
-        console.log('file:', 'http://files.chadzilla.com/picamera/' + filedate + extension);
-        resetTimer();
+    imagemin.run(function (err, files) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('sending file to server');
+            client.scp(localPath + filedate + extension, {
+                host: 'chadzilla.com',
+                username: user,
+                password: password,
+                path: serverPath
+            }, function (err) {
+                console.log('done with scp', err);
+                console.log('file:', 'http://files.chadzilla.com/picamera/' + filedate + extension);
+                resetTimer();
+            });
+        }
     });
+
+    
 };
 
 var resetTimer = function () {
