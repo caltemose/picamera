@@ -53,7 +53,7 @@ var captureJpeg = function () {
     
     console.log('sending file to server');
 
-    client.scp(file, {
+    client.scp(localPath + filedate + extension, {
         host: 'chadzilla.com',
         username: user,
         password: password,
@@ -61,11 +61,12 @@ var captureJpeg = function () {
     }, function (err) {
         console.log('done with scp', err);
         console.log('file:', 'http://files.chadzilla.com/picamera/' + filedate + extension);
+        resetTimer();
     });
 };
 
 var resetTimer = function () {
-    // console.log('resetting timer...');
+    console.log('resetting timer...');
     if (timer) {
         clearTimeout(timer);
         timer = null;
