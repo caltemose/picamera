@@ -49,14 +49,14 @@ var captureJpeg = function () {
     // flip vertical + horizontal (upside-down camera)
     // code += '-vf -hf ';
     // path to file
-    code += '-o ' + localPath + filedate + extension;
+    code += '-o ' + localPath + filedate + '-t' + extension;
 
-    console.log('shooting image:', localPath + filedate + extension);
+    console.log('shooting image:', localPath + filedate + '-t' + extension);
     shell.exec(code);
     
     console.log('compressing image...');
     var imagemin = new Imagemin()
-        .src(localPath + filedate + extension)
+        .src(localPath + filedate + '-t' + extension)
         .dest(localPath + filedate + extension)
         .use(Imagemin.jpegtran({progressive:true}));
 
