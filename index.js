@@ -49,15 +49,11 @@ var captureJpeg = function () {
     file = pathPrefix + filedate + extension;
     code += '-o ' + file;
 
-    // console.log(now);
-    // console.log(code);
+    console.log('shooting image:', file);
 
     shell.exec(code);
-    // console.log('shell.exec(code);');
-    // console.log(pathPrefix + filedate + extension);
-
-    // resetTimer();
-    // console.log('resetTimer();')
+    
+    console.log('sending file to server');
 
     client.scp(file, {
         host: 'chadzilla.com',
