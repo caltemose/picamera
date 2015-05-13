@@ -1,6 +1,6 @@
 var shell = require('shelljs');
 var client = require('scp2');
-var Imagemin = require('imagemin');
+
 
 var timer, delay = 60 * 1000;
 
@@ -33,8 +33,8 @@ var captureJpeg = function () {
     var serverPath = '/home/chadzilla/files.chadzilla.com/picamera/';
     var localPath = './stills/';
     var extension = '.jpg';
-    var imgWidth = 800;//1296;
-    var imgHeight = 600;//972;
+    var imgWidth = 1296;
+    var imgHeight = 972;
     var quality = 50;
     var preDelay = 500;
 
@@ -53,30 +53,6 @@ var captureJpeg = function () {
 
     console.log('shooting image:', localPath + filedate + extension);
     shell.exec(code);
-    
-    // console.log('compressing image...');
-    // var imagemin = new Imagemin()
-    //     .src(localPath + filedate + '-t' + extension)
-    //     .dest(localPath + filedate + extension)
-    //     .use(Imagemin.jpegtran({progressive:true}));
-
-    // imagemin.run(function (err, files) {
-    //     if (err) {
-    //         console.log(err);
-    //     } else {
-    //         console.log('sending file to server');
-    //         client.scp(localPath + filedate + extension, {
-    //             host: 'chadzilla.com',
-    //             username: user,
-    //             password: password,
-    //             path: serverPath
-    //         }, function (err) {
-    //             console.log('done with scp', err);
-    //             console.log('file:', 'http://files.chadzilla.com/picamera/' + filedate + extension);
-    //             resetTimer();
-    //         });
-    //     }
-    // });
 
     console.log('sending file to server');
     client.scp(localPath + filedate + extension, {
@@ -86,7 +62,7 @@ var captureJpeg = function () {
         path: serverPath
     }, function (err) {
         console.log('done with scp', err);
-        console.log('file:', 'http://files.chadzilla.com/picamera/' + filedate + extension);
+        console.log('file:', 'http://files.chadzilla.com/picamera/wed13/' + filedate + extension);
         resetTimer();
     });
     
@@ -101,5 +77,5 @@ var resetTimer = function () {
     timer = setTimeout(captureJpeg, delay);
 };
 
-// console.log('go!');
+console.log('go!');
 captureJpeg();
